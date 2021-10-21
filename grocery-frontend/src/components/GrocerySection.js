@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from "axios";
+import classNames from "classnames";
 export default function GrocerySection() {
     const [groceryItemInput, updateGroceryItemInput] = useState("");
     const [groceryItemsList, updateGroceryItemsList] = useState([]);
@@ -68,17 +69,32 @@ export default function GrocerySection() {
             console.log("Some error occured while adding", e);
         }
     }
+    async function deleteItem(_id) {
+        try {
+            const response = await axios.delete(`${process.env.REACT_APP_SERVER_URL}/groceryItems/delete`, {
+                data: {
+                    _id: _id,
+                },
+              });
+              console.log("response", response);
+              getGroceryItems();
+        } catch (e) {
+            console.log("Some error occured while adding", e);
+        }
+    }
     function renderGroceryItems() {
        console.log("groceryItemsList", groceryItemsList);
        return groceryItemsList.map((groceryitem)=> {
          return ( 
          <div 
             key={groceryitem.itemName} 
-            className="bg-indigo-200 w-80 h-10 border border-indigo-700 flex justify-center items-center px-2">
-                <span>{groceryitem.itemName}</span>
+            className="bg-white w-96 h-14">
+                <div className=" bg-white shadow-md rounded w-auto h-12 flex justify-center items-center mt-0 px-3 mx-auto">
+                <span className={classNames({'line-through': groceryitem.isPurchased === true,})}>{groceryitem.itemName}</span>
                 <div className="ml-auto">
-                <button className="bg-indigo-400 px-2 py-1 rounded border border-indigo-700 mr-3" onClick={() => updatePurchaseStatus(groceryitem._id)}>Purchased</button>
-                <button className="bg-indigo-400 px-2 py-1 rounded border border-indigo-700">X</button>
+                <button className="bg-white px-2 py-0 rounded shadow-md border border-gray-400 font-medium mr-3" onClick={() => updatePurchaseStatus(groceryitem._id)}>Purchased</button>
+                <button className="bg-white px-2 py-0 rounded shadow-md border border-gray-400 font-medium" onClick={() => deleteItem(groceryitem._id)}>X</button>
+                </div>
                 </div>
                 </div>
          );
@@ -89,8 +105,8 @@ export default function GrocerySection() {
                 <span className="text-2xl">
                     Plan for the month of {getCurrentMonth()}
                 </span>
-                <div>
-                   <input className="border-2 border-black rounded w-80 h-10 grocery-items-input" type="text" placeholder="Add grocery item" value={groceryItemInput} onChange={(e)=>updateGroceryItemInput(e.target.value)} onKeyDown={handleKeyDown}></input>
+                <div className="mt-4">
+                   <input className="shadow-md rounded w-96 h-10 bg-white grocery-items-input" type="text" placeholder="Add Shopping Item" value={groceryItemInput} onChange={(e)=>updateGroceryItemInput(e.target.value)} onKeyDown={handleKeyDown}></input>
                 </div>
                 <div>
                     {renderGroceryItems()}
