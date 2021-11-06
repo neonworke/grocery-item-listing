@@ -1,6 +1,6 @@
 <h1>Grocery Item Listing App</h1>
 
-<img src="https://socialify.git.ci/neonworke/grocery-item-listing/image?description=1&descriptionEditable=Grocery%20Item%20Listing%20App%20-%20MERN&font=Raleway&language=1&name=1&owner=1&stargazers=1&theme=Light" width="800"/>
+<img src="https://socialify.git.ci/neonworke/grocery-item-listing/image?description=1&descriptionEditable=Grocery%20Item%20Listing%20App%20-%20MERN&font=Raleway&language=1&name=1&owner=1&stargazers=1&theme=Light" width="700" height="400"/>
 
 Grocery Item Listing App built using MERN Stack
 
